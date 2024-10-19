@@ -1,0 +1,96 @@
+/*
+ * stm32f411xx_gpio_driver.c
+ *
+ *  Created on: Aug 25, 2024
+ *      Author: lmthu
+ */
+
+
+#include "stm32f411xx_gpio_driver.h"
+
+void HAL_GPIO_PeriClockControl(GPIO_TypeDef *GPIOx, uint8_t EnorDi){
+	if(EnorDi){
+		if(GPIOx == GPIOA){
+			GPIOA_PCLK_EN();			
+		}
+		else if(GPIOx == GPIOB){
+			GPIOB_PCLK_EN();
+		}
+		else if(GPIOx == GPIOC){
+			GPIOC_PCLK_EN();
+		}
+		else if(GPIOx == GPIOD){
+			GPIOD_PCLK_EN();
+		}
+		else if(GPIOx == GPIOE){
+			GPIOE_PCLK_EN();
+		}
+		else if(GPIOx == GPIOH){
+			GPIOH_PCLK_EN();
+		}
+	}
+}
+
+void HAL_GPIO_Init(GPIO_Handle_t *GPIOHandle){
+	uint8_t PinMode = GPIOHandle->GPIO_PinConfig.GPIO_PinMode;
+	uint8_t PinNum = GPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+	uint8_t OPType = GPIOHandle->GPIO_PinConfig.GPIO_PinOPType;
+	uint8_t OSPEED = GPIOHandle->GPIO_PinConfig.GPIO_PinSpeed;
+	uint8_t PuPdControl = GPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl;
+
+	HAL_GPIO_PeriClockControl(GPIOHandle->GPIOx, ENABLE);
+	if (PinMode <= GPIO_ANALOG_MODE){
+		GPIOHandle->GPIOx->MODER &= (~(0x3 << (PinNum*2)));
+		GPIOHandle->GPIOx->MODER |= (PinMode << (PinNum*2));
+	}
+	else{
+		if(PinMode == GPIO_INTERRUPT_RT){
+
+		}
+		else if(PinMode == GPIO_INTERRUPT_FT){
+
+		}
+		else if(PinMode == GPIO_INTERRUPT_RFT){
+
+		}
+	}
+	GPIOHandle->GPIOx->OTYPER &= (~(0x3  << PinNum));
+	GPIOHandle->GPIOx->OTYPER |= (OPType << PinNum);
+
+	GPIOHandle->GPIOx->OSPEED &= (~(0x3  << (PinNum*2)));
+	GPIOHandle->GPIOx->OSPEED |= (OSPEED << (PinNum*2));
+	
+	GPIOHandle->GPIOx->PUPDR  &= (~(0x3  << PinNum));
+	GPIOHandle->GPIOx->PUPDR  |= (PuPdControl << PinNum);
+}
+void HAL_GPIO_DeInit(GPIO_TypeDef *GPIOx){
+	// NOT IMPLEMENT YET
+}
+
+GPIO_PinState 	HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin){
+	// NOT IMPLEMENT YET
+}
+void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState){
+	if(PinState == ENABLE){
+		GPIOx->ODR |= (0x1 << GPIO_Pin); 
+	}
+	else{
+		GPIOx->ODR &= (~(0x1 << GPIO_Pin));
+	}
+}
+void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin){
+	// NOT IMPLEMENT YET
+}
+
+void HAL_GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi){
+	// NOT IMPLEMENT YET
+}
+void HAL_GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority){
+	// NOT IMPLEMENT YET
+}
+void HAL_GPIO_IRQHandling(uint8_t IRQNumber){
+	// NOT IMPLEMENT YET
+}
+
+
+

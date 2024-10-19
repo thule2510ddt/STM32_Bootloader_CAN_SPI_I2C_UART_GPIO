@@ -1,0 +1,37 @@
+/*
+ * stm32f407xx.h
+ *
+ *  Created on: Aug 17, 2024
+ *      Author: lmthu
+ */
+
+#ifndef STM32F407XX_H_
+#define STM32F407XX_H_
+
+#define APB1_BaseAddress 		0x40000000
+#define APB2_BaseAddress 		0x40010000
+#define AHB1_BaseAddress 		0x40020000
+#define AHB2_BaseAddress 		0x50000000
+
+#define GPIOA_BaseAddress 		AHB1_BaseAddress
+#define GPIOB_BaseAddress 		AHB1_BaseAddress + 0x0400
+#define GPIOC_BaseAddress 		AHB1_BaseAddress + 0x0800
+#define GPIOD_BaseAddress 		AHB1_BaseAddress + 0x0C00
+#define GPIOE_BaseAddress 		AHB1_BaseAddress + 0x1000
+#define GPIOH_BaseAddress 		AHB1_BaseAddress + 0x1C00
+
+#define RCC_BaseAddress 		AHB1_BaseAddress + 0x3800
+
+typedef struct {
+	volatile uint32_t MODER;
+	volatile uint32_t OTYPER;
+	volatile uint32_t OSPEED;
+	volatile uint32_t PUPDR;
+	volatile uint32_t IDR;
+	volatile uint32_t ODR;
+	volatile uint32_t BSRR;
+	volatile uint32_t LCKR;
+	volatile uint32_t AFR[2];
+}GPIO_TypeDef;
+
+#endif /* STM32F407XX_H_ */

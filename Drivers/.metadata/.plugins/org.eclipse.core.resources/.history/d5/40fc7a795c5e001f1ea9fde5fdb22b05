@@ -1,0 +1,38 @@
+/*
+ * stm32f407xx_gpio_driver.h
+ *
+ *  Created on: Aug 20, 2024
+ *      Author: lmthu
+ */
+
+#ifndef STM32F407XX_GPIO_DRIVER_H_
+#define STM32F407XX_GPIO_DRIVER_H_
+
+#include "stm32f407xx.h"
+
+typedef enum {
+	GPIO_PIN_RESET = 0,
+	GPIO_PIN_SET
+} GPIO_PinState;
+
+#define GPIO_PIN_0                  ((uint16_t)0x0001)
+#define GPIO_PIN_1                  ((uint16_t)0x0001)
+#define GPIO_PIN_2                  ((uint16_t)0x0001)
+#define GPIO_PIN_3                  ((uint16_t)0x0001)
+#define GPIO_PIN_4                  ((uint16_t)0x0001)
+#define GPIO_PIN_5                  ((uint16_t)0x0001)
+#define GPIO_PIN_6                  ((uint16_t)0x0001)
+#define GPIO_PIN_7                  ((uint16_t)0x0001)
+#define GPIO_PIN_8                  ((uint16_t)0x0001)
+#define GPIO_PIN_9                  ((uint16_t)0x0001)
+#define GPIO_PIN_10                 ((uint16_t)0x0001)
+#define GPIO_PIN_11                 ((uint16_t)0x0001)
+#define GPIO_PIN_12                 ((uint16_t)0x0001)
+#define GPIO_PIN_13                 ((uint16_t)0x0001)
+#define GPIO_PIN_14                 ((uint16_t)0x0001)
+#define GPIO_PIN_15                 ((uint16_t)0x0001)
+GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+#endif /* STM32F407XX_GPIO_DRIVER_H_ */
